@@ -1,33 +1,37 @@
 #!/usr/bin/python3
-
+'''Readme profile generator'''
 import requests
-
+import json
+from sys import argv
 
 if __name__ == '__main__':
+    if len(argv) < 4:
+        print('Run this file with your [Api_key] [Email] and [Password]')
+    else:
+        URL = 'https://intranet.hbtn.io/users'
+        headers = {'Content-Type': 'application/json'}
+        params = {'api_key': argv[1], 'email': argv[2], 'password': argv[3],
+                  'scope': 'checker'}
+        reqjson = requests.post('{}/auth_token.json'.
+                                format(URL), headers=headers, params=params)
+        token = reqjson.json()
+        requser = requests.get('{}/me.json?auth_token={}'.
+                               format(URL, token['auth_token']),
+                               headers=headers)
+        user = requser.json()
 
-    def get_data(username='', dev_name='', twitter='_', linkedin='_'):
-        git_stats = '![GitHub Stats](https://github-readme-stats.vercel.app/api?username=' + \
-            username + '&theme=default)'
+    gitread = 'https://github-readme-stats.vercel.app/api'
+    badge = 'https://img.shields.io/badge/-'
+    linkedin = user['linkedin_url'].split("/")[-2]
+    stats = '![GitHub Stats]({}?username={}&theme=default)\n'.format(gitread, user['github_username'])
+    say_hi = 'Hi, I´m {} a Software Delevoleper Student at Holberton School!\n'.format(user['full_name'])
+    lenguages = '![Top Langs]({}/top-langs/?username={}&layout=compact&theme=gotham)\n'.format(gitread, user['github_username'])
+    twitter = '[![Twitter Badge]({}{}-00acee?style=flat&logo=Twitter&logoColor=white)](https://twitter.com/intent/follow?screen_name={} " Follow on Twitter")\n'.format(badge, user['twitter_username'], user['twitter_username'])
+    linkedin = '[![Linkedin Badge]({}{}-blue?style=flat-square&logo=Linkedin&logoColor=white&link={})]({})\n'.format(badge, linkedin, user['linkedin_url'], user['linkedin_url'])
 
-        say_hi = 'Hi, I´m ' + dev_name + \
-            ', a Software Delevoleper Student at Holberton School!\n'
-
-        most_used_lenguages = '![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=' + \
-            username + '&layout=compact&theme=gotham)\n'
-
-        twitter = '[![Twitter Badge](https://img.shields.io/badge/-' + twitter + \
-            '-00acee?style=flat&logo=Twitter&logoColor=white)](https://twitter.com/intent/follow?screen_name=' + \
-            twitter + ' " Follow on Twitter")\n'
-
-        linkedin = '[![Linkedin Badge](https://img.shields.io/badge/-' + linkedin + \
-            '-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/wisvem/)](https://www.linkedin.com/in/' + \
-            linkedin + '/)\n'
-
-        with open('file', 'w') as file:
-            file.write(say_hi)
-            if twitter == '_':
-                file.write(twitter)
-            if linkedin == '_':
-                file.write(linkedin)
-            file.write(git_stats)
-            file.write(most_used_lenguages)
+    with open('README.md', 'w') as file:
+        file.write(say_hi)
+        file.write(twitter)
+        file.write(linkedin)
+        file.write(stats)
+        file.write(lenguages)
