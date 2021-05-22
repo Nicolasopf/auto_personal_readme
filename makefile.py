@@ -14,6 +14,9 @@ if __name__ == '__main__':
                   'scope': 'checker'}
         reqjson = requests.post('{}/auth_token.json'.
                                 format(URL), headers=headers, params=params)
+        if '200' not in reqjson:
+            print(reqjson.json())
+            exit()
         token = reqjson.json()
         requser = requests.get('{}/me.json?auth_token={}'.
                                format(URL, token['auth_token']),
@@ -25,13 +28,9 @@ if __name__ == '__main__':
     linkedin = user['linkedin_url'].split("/")[-2]
     stats = '![GitHub Stats]({}?username={}&theme=default)\n'.format(gitread, user['github_username'])
     say_hi = 'Hi, I´m {} a Software Delevoleper Student at Holberton School!\n'.format(user['full_name'])
-    lenguages = '![Top Langs]({}/top-langs/?username={}&layout=compact&theme=gotham)\n'.format(gitread, user['github_username'])
+    languages = '![Top Langs]({}/top-langs/?username={}&layout=compact&theme=gotham)\n'.format(gitread, user['github_username'])
     twitter = '[![Twitter Badge]({}{}-00acee?style=flat&logo=Twitter&logoColor=white)](https://twitter.com/intent/follow?screen_name={} " Follow on Twitter")\n'.format(badge, user['twitter_username'], user['twitter_username'])
     linkedin = '[![Linkedin Badge]({}{}-blue?style=flat-square&logo=Linkedin&logoColor=white&link={})]({})\n'.format(badge, linkedin, user['linkedin_url'], user['linkedin_url'])
 
     with open('README.md', 'w') as file:
-        file.write(say_hi)
-        file.write(twitter)
-        file.write(linkedin)
-        file.write(stats)
-        file.write(lenguages)
+        file.write(say_hi, twitter, linkedin, stats, languages)
