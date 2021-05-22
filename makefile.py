@@ -14,7 +14,7 @@ if __name__ == '__main__':
                   'scope': 'checker'}
         reqjson = requests.post('{}/auth_token.json'.
                                 format(URL), headers=headers, params=params)
-        if '200' not in reqjson:
+        if '200' not in str(reqjson):
             print(reqjson.json())
             exit()
         token = reqjson.json()
