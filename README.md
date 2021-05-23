@@ -26,6 +26,6 @@ You need at minimum and maximum 3 arguments.
 * Third argument: Holberton Password
 
 ## Authors
-Daniel Amado - danielfep.am@gmail.com
-Diego Ahumada - 2349@holbertonschool.com
-Nicolás Urrea - nico15935746@gmail.com
+Daniel Amado - danielfep.am@gmail.com <br>
+Diego Ahumada - 2349@holbertonschool.com <br>
+Nicolás Urrea - nico15935746@gmail.com 
