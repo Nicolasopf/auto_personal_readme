@@ -25,6 +25,10 @@ You need at minimum and maximum 3 arguments.
 * Second argument: Holberton Email
 * Third argument: Holberton Password
 
+```
+python3 makefile.py [API] [Email] [Password]
+```
+
 ## Authors
 Daniel Amado - danielfep.am@gmail.com <br>
 Diego Ahumada - 2349@holbertonschool.com <br>
