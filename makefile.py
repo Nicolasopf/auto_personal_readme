@@ -34,12 +34,17 @@ if __name__ == '__main__':
 
         gitread = 'https://github-readme-stats.vercel.app/api'
         badge = 'https://img.shields.io/badge/-'
-        linkedin = user['linkedin_url'].split("/")[-2]
-        stats = '![GitHub Stats]({}?username={}&theme=default)\n'.format(gitread, user['github_username'])
-        say_hi = 'Hi, I´m {} a Software Delevoleper Student at Holberton School!\n'.format(user['full_name'])
-        languages = '![Top Langs]({}/top-langs/?username={}&layout=compact&theme=gotham)\n'.format(gitread, user['github_username'])
-        twitter = '[![Twitter Badge]({}{}-00acee?style=flat&logo=Twitter&logoColor=white)](https://twitter.com/intent/follow?screen_name={} " Follow on Twitter")\n'.format(badge, user['twitter_username'], user['twitter_username'])
-        linkedin = '[![Linkedin Badge]({}{}-blue?style=flat-square&logo=Linkedin&logoColor=white&link={})]({})\n'.format(badge, linkedin, user['linkedin_url'], user['linkedin_url'])
+        linkedin = user['linkedin_url'].split("/")[-1]
+        stats = '![GitHub Stats]({}?username={}&theme=default)<br>\n'.format(
+            gitread, user['github_username'])
+        say_hi = 'Hi, I´m {} a Software Delevoleper Student at Holberton School!<br>\n'.format(
+            user['full_name'])
+        languages = '![Top Langs]({}/top-langs/?username={}&layout=compact&theme=gotham)<br>\n'.format(
+            gitread, user['github_username'])
+        twitter = '[![Twitter Badge]({}{}-00acee?style=flat&logo=Twitter&logoColor=white)](https://twitter.com/intent/follow?screen_name={} " Follow on Twitter")\n<br>'.format(
+            badge, user['twitter_username'], user['twitter_username'])
+        linkedin = '[![Linkedin Badge]({}{}-blue?style=flat-square&logo=Linkedin&logoColor=white&link={})]({})\n<br>'.format(
+            badge, linkedin, user['linkedin_url'], user['linkedin_url'])
         append_list = [say_hi, twitter, linkedin, stats, languages]
 
         stdout.write("[%s]100" % (" " * len(append_list)) + '%')
